@@ -60,3 +60,92 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+
+
+def read_matrix(rows, cols):
+    matrix = []
+    for i in range(1, rows + 1):
+        while True:
+            parts = input(f"Enter row {i}: ").split()
+            if len(parts) == cols:
+                matrix.append([int(x) for x in parts])
+                break
+            print(f"Row must have {cols} numbers.")
+    return matrix
+
+def print_matrix(matrix):
+    for row in matrix:
+        print("  ".join(str(val) for val in row))
+
+def transpose():
+    rows = int(input("Enter number of rows: "))
+    cols = int(input("Enter number of columns: "))
+    
+    matrix = read_matrix(rows, cols)
+    
+    result = []
+    for c in range(cols):
+        new_row = []
+        for r in range(rows):
+            new_row.append(matrix[r][c])
+        result.append(new_row)
+        
+    print("\nTransposed Matrix:")
+    print_matrix(result)
+
+def addition():
+    rows = int(input("Enter number of rows: "))
+    cols = int(input("Enter number of columns: "))
+    
+    print("Matrix 1")
+    m1 = read_matrix(rows, cols)
+    print("Matrix 2")
+    m2 = read_matrix(rows, cols)
+    
+    result = []
+    for r in range(rows):
+        new_row = []
+        for c in range(cols):
+            new_row.append(m1[r][c] + m2[r][c])
+        result.append(new_row)
+        
+    print("\nResult:")
+    print_matrix(result)
+
+def multiplication():
+    rows_a = int(input("Enter rows for Matrix A: "))
+    cols_a = int(input("Enter columns for Matrix A: "))
+    rows_b = int(input("Enter rows for Matrix B: "))
+    cols_b = int(input("Enter columns for Matrix B: "))
+    
+    if cols_a != rows_b:
+        print("Cannot multiply: columns of A must equal rows of B.")
+        return
+        
+    print("Matrix A")
+    a = read_matrix(rows_a, cols_a)
+    print("Matrix B")
+    b = read_matrix(rows_b, cols_b)
+    
+    result = []
+    for i in range(rows_a):
+        new_row = []
+        for j in range(cols_b):
+            total = 0
+            for k in range(cols_a):
+                total += a[i][k] * b[k][j]
+            new_row.append(total)
+        result.append(new_row)
+        
+    print("\nResult:")
+    print_matrix(result)
+
+def main():
+    print("Part A - Transpose")
+    transpose()
+    print("\nPart B - Addition")
+    addition()
+    print("\nPart C - Multiplication")
+    multiplication()
+
+main()
