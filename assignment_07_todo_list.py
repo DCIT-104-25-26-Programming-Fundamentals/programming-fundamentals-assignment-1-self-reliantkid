@@ -79,3 +79,74 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+
+tasks_list = []
+
+def add_task():
+    try:
+        task = input("Enter task: ")
+        if task:
+            tasks_list.append(task)
+            print(f'Task added: "{task}"\n')
+        else:
+            print("Task is empty\n")
+    except ValueError:
+        print("Invalid value!\n")
+
+
+def view_tasks():
+    if len(tasks_list) == 0:
+        print("No available tasks to display!\n")
+    else:
+        print("Your Tasks: ")
+        for i, task in enumerate(tasks_list, start=1):
+            print(f"{i}. {task}")
+        print("")
+
+
+def delete_task():
+    if len(tasks_list) == 0:
+        print("No available tasks to delete!\n")
+    else:
+        view_tasks()
+        try:
+            user_choice = int(input("Enter task number to delete: "))
+            task = tasks_list.pop(user_choice - 1)
+            print(f'Task "{task}" has been removed\n')
+        except ValueError:
+            print("Invalid value!\n")
+        except IndexError:
+            print("Invalid task number!\n")
+
+
+def main():
+    while True:
+        print("============================")
+        print("     TO-DO LIST MENU        ")
+        print("============================")
+        print("1. Add task")
+        print("2. View tasks")
+        print("3. Delete task")
+        print("4. Quit")
+
+        try: 
+            user_choice = int(input("\nEnter your choice (1-4): "))
+
+            if user_choice not in range(1, 5):
+                print("Option not in list!\n")
+            else:
+                if user_choice == 1:
+                    add_task()
+                elif user_choice == 2:
+                    view_tasks()
+                elif user_choice == 3:
+                    delete_task()
+                elif user_choice == 4:
+                    print("Goodbye!")
+                    return
+                
+        except ValueError:
+            print("Input must be a number in the options!\n")
+
+
+main()
